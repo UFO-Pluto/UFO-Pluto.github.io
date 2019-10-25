@@ -5,16 +5,19 @@
   
 
   
-  <title>试试 | 随便写写</title>
+  <title>ubuntu 配置SVN服务 | 随便写写</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="试试">
+  <meta name="description" content="ubuntu 配置SVN服务查看是否已安装svn服务svn 卸载： sudo apt-get remove --purge subversion 安装apt-get install subversion 创建svn根目录sudo mkdir /home/svn 创建项目仓库目录sudo svnadmin create /home/svn/rep 执行后/home/svn/rep下面会多几个目录和文">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ubuntu 配置SVN服务">
 <meta property="og:url" content="http://yoursite.com/2019/10/25/2019-10-25/index.html">
 <meta property="og:site_name" content="随便写写">
+<meta property="og:description" content="ubuntu 配置SVN服务查看是否已安装svn服务svn 卸载： sudo apt-get remove --purge subversion 安装apt-get install subversion 创建svn根目录sudo mkdir /home/svn 创建项目仓库目录sudo svnadmin create /home/svn/rep 执行后/home/svn/rep下面会多几个目录和文">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2019-10-25T03:03:23.496Z">
+<meta property="og:updated_time" content="2019-10-25T06:26:42.215Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="试试">
+<meta name="twitter:title" content="ubuntu 配置SVN服务">
+<meta name="twitter:description" content="ubuntu 配置SVN服务查看是否已安装svn服务svn 卸载： sudo apt-get remove --purge subversion 安装apt-get install subversion 创建svn根目录sudo mkdir /home/svn 创建项目仓库目录sudo svnadmin create /home/svn/rep 执行后/home/svn/rep下面会多几个目录和文">
   
     <link rel="alternate" href="/atom.xml" title="随便写写" type="application/atom+xml">
   
@@ -79,7 +82,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      试试
+      ubuntu 配置SVN服务
     </h1>
   
 
@@ -87,7 +90,41 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="ubuntu-配置SVN服务"><a href="#ubuntu-配置SVN服务" class="headerlink" title="ubuntu 配置SVN服务"></a>ubuntu 配置SVN服务</h1><h3 id="查看是否已安装svn服务"><a href="#查看是否已安装svn服务" class="headerlink" title="查看是否已安装svn服务"></a>查看是否已安装svn服务</h3><p><code>svn</code></p>
+<p>卸载：</p>
+<p><code>sudo apt-get remove --purge subversion</code></p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p><code>apt-get install subversion</code></p>
+<h3 id="创建svn根目录"><a href="#创建svn根目录" class="headerlink" title="创建svn根目录"></a>创建svn根目录</h3><p><code>sudo mkdir /home/svn</code></p>
+<h3 id="创建项目仓库目录"><a href="#创建项目仓库目录" class="headerlink" title="创建项目仓库目录"></a>创建项目仓库目录</h3><p><code>sudo svnadmin create /home/svn/rep</code></p>
+<p>执行后/home/svn/rep下面会多几个目录和文件</p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>在conf下的svnserve.conf、passwd、authz这三个文件是用来配置svn的</p>
+<h5 id="配置用户名密码"><a href="#配置用户名密码" class="headerlink" title="配置用户名密码"></a>配置用户名密码</h5><p><code>vim passwd</code></p>
+<p>在passwd [user] 下，根据注释的样子配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[users]</span><br><span class="line"># harry = harryssecret</span><br><span class="line"># sally = sallyssecret</span><br><span class="line">ufo = 123456</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置分组权限"><a href="#配置分组权限" class="headerlink" title="配置分组权限"></a>配置分组权限</h3><p><code>vi authz</code></p>
+<p>在authz中[groups]下面，配置一个分组，这里配置的开发组，里面有两个用户，[/]表示所有的目录，@后面跟的是组名，这里是@develop 等于号右边的 rw表示读写权限都有</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[groups]</span><br><span class="line">develop = ufo,spike</span><br><span class="line">[/]</span><br><span class="line">@develop = rw</span><br><span class="line"># harry_and_sally = harry,sally</span><br><span class="line"># harry_sally_and_joe = harry,sally,&amp;joe</span><br><span class="line"></span><br><span class="line">#[/foo/bar]</span><br><span class="line"># harry = rw</span><br><span class="line"># &amp;joe = r</span><br><span class="line"># * =</span><br></pre></td></tr></table></figure>
+
+<h3 id="svn全局配置，启用用户名密码，分组等"><a href="#svn全局配置，启用用户名密码，分组等" class="headerlink" title="svn全局配置，启用用户名密码，分组等"></a>svn全局配置，启用用户名密码，分组等</h3><p>配置svnserve.conf</p>
+<p><code>vi svnserve.conf</code></p>
+<p>将</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">anon-access = none</span><br><span class="line">auth-access = write</span><br></pre></td></tr></table></figure>
+
+<p>前注释去除</p>
+<p>第一行表示匿名用户的权限，我配置的是无，第二行表示认证用户的权限，我配置的是写</p>
+<p>将</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">password-db = passwd</span><br></pre></td></tr></table></figure>
+
+<p>前注释去除</p>
+<p>表示使用用户名密码</p>
+<p>将</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">authz-db = authz</span><br></pre></td></tr></table></figure>
+
+<p>前注释去除</p>
+<p>表示使用权威认证</p>
+<h3 id="启动SVN服务"><a href="#启动SVN服务" class="headerlink" title="启动SVN服务"></a>启动SVN服务</h3><p><code>svnserve -d -r /home/svn/rep</code></p>
+
       
     </div>
     <footer class="article-footer">
@@ -140,7 +177,7 @@
       <ul>
         
           <li>
-            <a href="/2019/10/25/2019-10-25/">试试</a>
+            <a href="/2019/10/25/2019-10-25/">ubuntu 配置SVN服务</a>
           </li>
         
           <li>
