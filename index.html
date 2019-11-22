@@ -88,59 +88,45 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>###安装说明</p>
-<p>系统环境：CentOS-6.3<br>安装方式：yum install （源码安装容易产生版本兼容的问题）<br>安装软件：系统自动下载SVN软件</p>
-<p>###检查已安装版本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#检查是否安装了低版本的SVN</span><br><span class="line">rpm -qa subversion</span><br><span class="line">#卸载旧版本SVN</span><br><span class="line">yum remove subversion</span><br><span class="line">#安装SVN</span><br><span class="line">yum install httpd httpd-devel subversion mod_dav_svn mod_auth_mysql</span><br><span class="line">#确认已安装了svn模块</span><br><span class="line">cd /etc/httpd/modules</span><br><span class="line">ls | grep svn</span><br><span class="line"></span><br><span class="line">mod_authz_svn.so</span><br><span class="line">mod_dav_svn.so</span><br></pre></td></tr></table></figure>
+        <h3 id="安装说明"><a href="#安装说明" class="headerlink" title="安装说明"></a>安装说明</h3><p>系统环境：CentOS-6.3<br>安装方式：yum install （源码安装容易产生版本兼容的问题）<br>安装软件：系统自动下载SVN软件</p>
+<h3 id="检查已安装版本"><a href="#检查已安装版本" class="headerlink" title="检查已安装版本"></a>检查已安装版本</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#检查是否安装了低版本的SVN</span><br><span class="line">rpm -qa subversion</span><br><span class="line">#卸载旧版本SVN</span><br><span class="line">yum remove subversion</span><br><span class="line">#安装SVN</span><br><span class="line">yum install httpd httpd-devel subversion mod_dav_svn mod_auth_mysql</span><br><span class="line">#确认已安装了svn模块</span><br><span class="line">cd /etc/httpd/modules</span><br><span class="line">ls | grep svn</span><br><span class="line"></span><br><span class="line">mod_authz_svn.so</span><br><span class="line">mod_dav_svn.so</span><br></pre></td></tr></table></figure>
 
-<p>###验证安装</p>
-<p>检验已经安装的SVN版本信息</p>
+<h3 id="验证安装"><a href="#验证安装" class="headerlink" title="验证安装"></a>验证安装</h3><p>检验已经安装的SVN版本信息</p>
 <p><code>svnserve --version</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">svnserve, version 1.7.14 (r1542130)</span><br><span class="line">   compiled Apr 11 2018, 02:40:28</span><br><span class="line"></span><br><span class="line">Copyright (C) 2013 The Apache Software Foundation.</span><br><span class="line">This software consists of contributions made by many people; see the NOTICE</span><br><span class="line">file for more information.</span><br><span class="line">Subversion is open source software, see http://subversion.apache.org/</span><br><span class="line"></span><br><span class="line">The following repository back-end (FS) modules are available:</span><br><span class="line"></span><br><span class="line">* fs_base : Module for working with a Berkeley DB repository.</span><br><span class="line">* fs_fs : Module for working with a plain file (FSFS) repository.</span><br><span class="line"></span><br><span class="line">Cyrus SASL authentication is available.</span><br></pre></td></tr></table></figure>
 
-<p>###代码库创建</p>
-<p><code>mkdir -p /opt/svn/repositories</code></p>
+<h3 id="代码库创建"><a href="#代码库创建" class="headerlink" title="代码库创建"></a>代码库创建</h3><p><code>mkdir -p /opt/svn/repositories</code></p>
 <p><code>svnadmin create /opt/svn/repositories</code></p>
 <p>执行上面的命令后，自动建立repositories库，查看/opt/svn/repositories 文件夹发现包含了conf, db,format,hooks, locks, README.txt等文件，说明一个SVN库已经建立。</p>
-<p>###配置代码库</p>
-<p>进入上面生成的文件夹conf下，进行配置</p>
+<h3 id="配置代码库"><a href="#配置代码库" class="headerlink" title="配置代码库"></a>配置代码库</h3><p>进入上面生成的文件夹conf下，进行配置</p>
 <p><code>cd /opt/svn/repositories/conf</code></p>
-<p>####用户密码passwd配置</p>
-<p><code>cd /opt/svn/repositories/conf</code></p>
+<h3 id="用户密码passwd配置"><a href="#用户密码passwd配置" class="headerlink" title="用户密码passwd配置"></a>用户密码passwd配置</h3><p><code>cd /opt/svn/repositories/conf</code></p>
 <p><code>vim passwd</code></p>
 <p>修改passwd为以下内容：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[users]</span><br><span class="line"># harry = harryssecret</span><br><span class="line"># sally = sallyssecret</span><br><span class="line">ufo = 123456</span><br></pre></td></tr></table></figure>
 
-<p>####权限控制authz配置</p>
-<p><code>vim authz</code></p>
+<h3 id="权限控制authz配置"><a href="#权限控制authz配置" class="headerlink" title="权限控制authz配置"></a>权限控制authz配置</h3><p><code>vim authz</code></p>
 <p>目的是设置哪些用户可以访问哪些目录，向authz文件追加以下内容：<br>设置[/]代表根目录下所有的资源</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[/]</span><br><span class="line">ufo = rw</span><br></pre></td></tr></table></figure>
 
-<p>####服务svnserve.conf配置</p>
-<p><code>vim svnserve.conf</code></p>
+<h3 id="服务svnserve-conf配置"><a href="#服务svnserve-conf配置" class="headerlink" title="服务svnserve.conf配置"></a>服务svnserve.conf配置</h3><p><code>vim svnserve.conf</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[general]</span><br><span class="line">#匿名访问的权限，可以是read,write,none,默认为read</span><br><span class="line">anon-access=none</span><br><span class="line">#使授权用户有写权限</span><br><span class="line">auth-access=write</span><br><span class="line">#密码数据库的路径</span><br><span class="line">password-db=passwd</span><br><span class="line">#访问控制文件</span><br><span class="line">authz-db=authz</span><br><span class="line">#认证命名空间，subversion会在认证提示里显示，并且作为凭证缓存的关键字</span><br><span class="line">realm=/opt/svn/repositories</span><br></pre></td></tr></table></figure>
 
-<p>####配置防火墙端口</p>
-<p><code>vi /etc/sysconfig/iptables</code></p>
+<h3 id="配置防火墙端口"><a href="#配置防火墙端口" class="headerlink" title="配置防火墙端口"></a>配置防火墙端口</h3><p><code>vi /etc/sysconfig/iptables</code></p>
 <p>添加以下内容：</p>
 <p><code>-A INPUT -m state --state NEW -m tcp -p tcp --dport 3690 -j ACCEPT</code></p>
 <p>保存后重启防火墙</p>
 <p><code>service iptables restart</code></p>
-<p>####启动SVN</p>
-<p><code>svnserve -d -r /opt/svn/repositories</code></p>
-<p>####查看SVN进程</p>
-<p><code>ps -ef|grep svn|grep -v grep</code></p>
+<h3 id="启动SVN"><a href="#启动SVN" class="headerlink" title="启动SVN"></a>启动SVN</h3><p><code>svnserve -d -r /opt/svn/repositories</code></p>
+<h3 id="查看SVN进程"><a href="#查看SVN进程" class="headerlink" title="查看SVN进程"></a>查看SVN进程</h3><p><code>ps -ef|grep svn|grep -v grep</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root 12538 1 0 14:40 ? 00:00:00 svnserve -d -r /opt/svn/repositories</span><br></pre></td></tr></table></figure>
 
-<p>####检测SVN 端口</p>
-<p><code>netstat -ln |grep 3690</code></p>
+<h3 id="检测SVN-端口"><a href="#检测SVN-端口" class="headerlink" title="检测SVN 端口"></a>检测SVN 端口</h3><p><code>netstat -ln |grep 3690</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tcp 0 0 0.0.0.0:3690 0.0.0.0:* LISTEN</span><br></pre></td></tr></table></figure>
 
-<p>####停止重启SVN</p>
-<p><code>killall svnserve</code> //停止</p>
+<h3 id="停止重启SVN"><a href="#停止重启SVN" class="headerlink" title="停止重启SVN"></a>停止重启SVN</h3><p><code>killall svnserve</code> //停止</p>
 <p><code>svnserve -d -r /opt/svn/repositories</code> // 启动</p>
-<p>####测试</p>
-<p>SVN服务已经启动，使用客户端测试连接。</p>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>SVN服务已经启动，使用客户端测试连接。</p>
 <p>客户端连接地址：svn://ip</p>
 <p>用户名/密码： ufo/123456</p>
 <p>测试创建文件夹等操作。</p>
